@@ -1,24 +1,26 @@
-# CES 2026 Exhibitor Scraper
+# CES 2026 Exhibitor Database
 
-A high-performance web scraper written in Rust to collect exhibitor data from CES 2026 (Consumer Electronics Show). This tool fetches comprehensive exhibitor information including company details, booth locations, product categories, and funding information.
+Comprehensive exhibitor information from CES 2026 (Consumer Electronics Show) including company details, booth locations, product categories, and funding information.
 
-## Enriched Database
-
-Access the complete CES 2026 Exhibitor Database (enriched with funding & revenue data):
+## Access the Database
 
 **[View CES 2026 Exhibitor Database on Google Sheets](https://docs.google.com/spreadsheets/d/1p2KgnD3UI4qH8G3q0rD_hbdEfq480B-j/edit?usp=sharing&ouid=104753634455432639165&rtpof=true&sd=true)**
 
-## Features
+Download options available in the `output/` directory:
+- **JSON**: `CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).json`
+- **CSV**: `CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).csv`
 
-- **Fast API-based scraping**: Uses the official CES exhibitor API for bulk data retrieval
-- **Concurrent detail fetching**: Parallel requests with configurable concurrency (30 simultaneous requests)
-- **Comprehensive data extraction**: Collects 15+ fields per exhibitor
-- **Dual output formats**: Exports to both JSON and CSV
-- **Progress tracking**: Real-time progress bars with ETA
-- **Rate limiting**: Built-in delays to respect server resources
-- **Deduplication**: Automatic removal of duplicate exhibitors
+## Key Insights
 
-## Data Fields Collected
+This database provides valuable insights for:
+
+- **Investors & VCs**: Identify startups seeking funding, filter by investment stage (Seed, Series A/B/C), funding amounts, and revenue ranges
+- **Business Development**: Find potential partners by product category, booth location, and company size
+- **Market Research**: Analyze technology trends across AI, robotics, smart home, healthcare, and other innovation sectors
+- **Event Planning**: Navigate CES 2026 efficiently with venue locations, booth numbers, and hall assignments
+- **Competitive Analysis**: Research companies by category, geography, and funding status
+
+## Database Fields
 
 | Field | Description |
 |-------|-------------|
@@ -39,125 +41,54 @@ Access the complete CES 2026 Exhibitor Database (enriched with funding & revenue
 | `investment_stage` | Current investment stage |
 | `country` | Company headquarters country |
 
-## Prerequisites
+## Use Cases
+
+### For Investors
+Filter companies by:
+- `seek_funding = Yes` to find investment opportunities
+- `investment_stage` to match your fund's focus (Seed, Series A, etc.)
+- `funding_amount` to find deals in your target range
+- `revenue` to assess company maturity
+
+### For Business Development
+Search by:
+- `product_categories` to find companies in your target market
+- `booth_venue` and `booth_number` to plan meetings at CES
+- `country` to find international partnership opportunities
+
+### For Market Research
+Analyze:
+- Distribution of companies across product categories
+- Geographic representation by country
+- Funding landscape and investment trends
+- Technology sector breakdowns
+
+---
+
+## Data Collection Tool
+
+This repository also includes the Rust-based scraper used to collect the data.
+
+### Prerequisites
 
 - Rust 1.70+ (install via [rustup](https://rustup.rs/))
-- Internet connection
 
-## Installation
+### Running the Scraper
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/ces_2026_rust_scraper.git
+git clone https://github.com/aezizhu/ces_2026_rust_scraper.git
 cd ces_2026_rust_scraper
-```
-
-2. Build the project:
-```bash
-cargo build --release
-```
-
-## Usage
-
-Run the scraper:
-```bash
 cargo run --release
 ```
 
-The scraper operates in two phases:
-1. **Phase 1**: Fetches exhibitor list via API pagination (100 exhibitors per request)
-2. **Phase 2**: Enriches data by scraping individual exhibitor detail pages
+### Technical Details
 
-Output files are saved to the `output/` directory:
-- `CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).json` - Full JSON export
-- `CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).csv` - CSV export for spreadsheet use
+- **Fast API-based scraping**: Uses the official CES exhibitor API
+- **Concurrent requests**: 30 simultaneous connections for speed
+- **Dual output formats**: JSON and CSV exports
+- **Deduplication**: Automatic removal of duplicates
 
-## Example Output
-
-```
-=== CES 2026 Exhibitor Scraper (Rust - Fast API Mode) ===
-
-Fetching exhibitor count...
-Total exhibitors: 4500
-
-=== Phase 1: Fetching exhibitor data via API ===
-[00:00:45] [########################################] 4500/4500 (0s)
-API fetch complete
-
-Unique exhibitors fetched: 4500
-
-=== Phase 2: Fetching details from 4500 detail pages ===
-[00:02:30] [########################################] 4500/4500 (0s)
-Detail fetch complete
-
-=== Results ===
-Total exhibitors: 4500
-With description: 4200 (93%)
-With booth_venue: 4100 (91%)
-With booth_full: 4100 (91%)
-With website: 3800 (84%)
-With address: 4000 (88%)
-With categories: 3500 (77%)
-
-Saved to output/all_exhibitors.json
-Saved to output/all_exhibitors.csv
-```
-
-## Project Structure
-
-```
-ces_2026_rust_scraper/
-├── Cargo.toml          # Project dependencies
-├── Cargo.lock          # Locked dependency versions
-├── src/
-│   └── main.rs         # Main application code
-├── output/             # Generated output files
-│   ├── CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).json
-│   └── CES 2026 Exhibitor Database (Enriched with Funding & Revenue Data).csv
-└── README.md
-```
-
-## Dependencies
-
-| Crate | Purpose |
-|-------|---------|
-| `tokio` | Async runtime |
-| `reqwest` | HTTP client |
-| `scraper` | HTML parsing |
-| `serde` / `serde_json` | JSON serialization |
-| `csv` | CSV export |
-| `futures` | Async utilities |
-| `indicatif` | Progress bars |
-| `chrono` | Timestamps |
-| `anyhow` | Error handling |
-| `regex` | Pattern matching |
-
-## Configuration
-
-Key constants in `src/main.rs`:
-
-```rust
-const API_URL: &str = "https://exhibitors.ces.tech/8_0/ajax/remote-proxy.cfm";
-const PAGE_SIZE: usize = 100;  // Exhibitors per API request
-```
-
-Concurrency is controlled by a semaphore (default: 30 concurrent requests):
-```rust
-let semaphore = std::sync::Arc::new(tokio::sync::Semaphore::new(30));
-```
-
-## Performance
-
-- **API Phase**: ~45 seconds for 4500 exhibitors
-- **Detail Phase**: ~2-3 minutes with 30 concurrent requests
-- **Total runtime**: ~3-4 minutes for complete scrape
-
-## Legal Disclaimer
-
-This tool is provided for educational and research purposes only. Users are responsible for ensuring compliance with:
-- CES website terms of service
-- Applicable data protection regulations
-- Rate limiting and respectful scraping practices
+---
 
 ## License
 
@@ -165,28 +96,22 @@ This project is licensed under the **Apache License 2.0** - see the [LICENSE](LI
 
 ### Attribution Requirements
 
-**If you use this software, you MUST provide attribution to the original author.**
-
-When using this project, include the following attribution in your project:
+**If you use this data or software, you MUST provide attribution to the original author.**
 
 ```
-This project uses CES 2026 Exhibitor Scraper by aezizhu,
-licensed under the Apache License 2.0.
+CES 2026 Exhibitor Database by aezizhu
+Licensed under the Apache License 2.0
 https://github.com/aezizhu/ces_2026_rust_scraper
 ```
 
-You must also:
-- Include a copy of the [LICENSE](LICENSE) file
-- Include the [NOTICE](NOTICE) file in your distribution
-- Clearly indicate any modifications you made
+## Legal Disclaimer
+
+This data is provided for educational and research purposes only. Users are responsible for ensuring compliance with applicable data protection regulations.
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
-By contributing, you agree that your contributions will be licensed under the Apache License 2.0.
-
 ## Acknowledgments
 
 - CES (Consumer Electronics Show) for providing the exhibitor platform
-- The Rust async ecosystem for excellent tooling
