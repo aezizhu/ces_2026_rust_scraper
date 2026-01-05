@@ -155,11 +155,30 @@ This tool is provided for educational and research purposes only. Users are resp
 
 ## License
 
-MIT License
+This project is licensed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details.
+
+### Attribution Requirements
+
+**If you use this software, you MUST provide attribution to the original author.**
+
+When using this project, include the following attribution in your project:
+
+```
+This project uses CES 2026 Exhibitor Scraper by aezizhu,
+licensed under the Apache License 2.0.
+https://github.com/aezizhu/ces_2026_rust_scraper
+```
+
+You must also:
+- Include a copy of the [LICENSE](LICENSE) file
+- Include the [NOTICE](NOTICE) file in your distribution
+- Clearly indicate any modifications you made
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
+
+By contributing, you agree that your contributions will be licensed under the Apache License 2.0.
 
 ## Acknowledgments
 

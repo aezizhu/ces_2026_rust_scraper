@@ -1,0 +1,22 @@
+CES 2026 Exhibitor Scraper
+Copyright 2025 aezizhu
+
+This product includes software developed by aezizhu.
+https://github.com/aezizhu/ces_2026_rust_scraper
+
+================================================================================
+
+ATTRIBUTION REQUIREMENTS:
+
+If you use this software, you must:
+
+1. Include this NOTICE file in your distribution
+2. Provide attribution to the original author (aezizhu) in your project
+3. Include a copy of the Apache 2.0 License
+
+Example attribution:
+"This project uses CES 2026 Exhibitor Scraper by aezizhu,
+licensed under the Apache License 2.0.
+https://github.com/aezizhu/ces_2026_rust_scraper"
+
+================================================================================
