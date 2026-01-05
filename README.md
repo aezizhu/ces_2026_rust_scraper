@@ -25,6 +25,8 @@ Download options available in the `output/` directory:
 
 ## Key Insights
 
+![CES 2026 Exhibitor Database - Comprehensive Analysis Dashboard](images/dashboard.png)
+
 ### Geographic Distribution
 
 **Top 5 Countries:**
