@@ -17,7 +17,7 @@ Download options available in the `output/` directory:
 | Metric | Value |
 |--------|-------|
 | **Total Exhibitors** | 4,178 companies |
-| **Countries Represented** | 65 |
+| **Countries/Regions Represented** | 65 |
 | **Product Categories** | 50 unique categories |
 | **Avg Categories per Exhibitor** | 4.1 |
 
@@ -29,7 +29,7 @@ Download options available in the `output/` directory:
 
 ### Geographic Distribution
 
-**Top 5 Countries:**
+**Top 5 Countries/Regions:**
 
 | Country | Exhibitors | Share |
 |---------|------------|-------|
